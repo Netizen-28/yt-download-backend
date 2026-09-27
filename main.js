@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import fs from "fs";
 import {Innertube, Platform} from "youtubei.js";
 Platform.shim.eval = async (e)=>{
     return new Function(e.output)();
@@ -10,7 +9,12 @@ app.use(cors());
 async function tast(){
     let cookies = [];
     cookies = JSON.parse(fs.readFileSync("./cookies.json", "utf-8"));
-    const yot = await Innertube.create({cookie: cookies});
+    let cst = "";
+    for (const c of cookies){
+        cst += `${c.name}=${c.value};`;
+    }
+    cst = cst.slice(0, -1)
+    const yot = await Innertube.create({cookie: cst});
     return yot;
 }
 tast();

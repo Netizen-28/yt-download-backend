@@ -7,7 +7,9 @@ Platform.shim.eval = async (e)=>{
 const app = express();
 app.use(cors());
 async function tast(){
-    const yot = await Innertube.create();
+    let cookies = [];
+    cookies = JSON.parse(fs.readFileSync("./cookies.json", "utf-8"));
+    const yot = await Innertube.create({cookie: cookies});
     return yot;
 }
 tast();

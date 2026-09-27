@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {Innertube, Platform} from "youtubei.js";
+import fs from "fs";
 Platform.shim.eval = async (e)=>{
     return new Function(e.output)();
 }

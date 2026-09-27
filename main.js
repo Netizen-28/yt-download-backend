@@ -14,6 +14,9 @@ tast();
 app.listen(process.env.PORT || 3000, "0.0.0.0", ()=>{});
 app.get("/download", async (req, res)=>{
     try {
+        if (!yt){
+            return res.status(503).send("Loading...");
+        }
         const chk = await yt.download(req.query.id, {
             type: "video+audio",
             quality: "240p",
